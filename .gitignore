@@ -1,0 +1,8 @@
+# envs
+.env
+*.conf
+
+# db files
+db.sqlite3
+
+__pycache__

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "django_blog"
+version = "0.1.0"
+description = "A blog made with Django"
+authors = ["jose.padin <jose.mendez@kubicum.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "4.0"
+Pillow = "^9.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
