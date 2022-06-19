@@ -27,7 +27,7 @@ class Post(models.Model):
         blank=True,
     )
     is_deleted = models.BooleanField(default=False, blank=True)
-    image = models.ImageField(upload_to="uploads/posts", null=True, blank=True)
+    image = models.ImageField(upload_to="media")
 
     class Meta:
         db_table = "post"

@@ -52,6 +52,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
+                "django.template.context_processors.media",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -109,14 +110,15 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Static files
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR.parent / "static",
 ]
 
 # Media
-MEDIA_ROOT = "djangoblog/uploads/"
-MEDIA_URL = ""
+MEDIA_ROOT = os.path.join(BASE_DIR.parent, "media/")
+MEDIA_URL = "media/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

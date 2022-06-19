@@ -1,22 +1,25 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
-{% block header%}{% endblock%}
+{% block head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog_list.css' %}">
+{% endblock%}
 
 {% block content %}
     {% if posts %}
-        <table class="table">
-            <tr>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Image</th>
-            </tr>
-            {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.text }}</td>
-                <td>{{ post.image }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        {% for post in posts %}
+            <article class="card w-50">
+                <img class="card-img-top" src="{{ post.image.url }}" alt="Post image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text text">{{ post.text }}</p>
+                    <a href="{% url 'post:detail' post.id %}" class="btn btn-primary">Continue reading</a>
+                </div>
+            </article>
+            <hr />
+        {% endfor %}
     {% endif %}
 {% endblock %}

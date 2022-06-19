@@ -5,4 +5,8 @@
 # db files
 db.sqlite3
 
+# media files
+media/
+images/
+
 __pycache__
