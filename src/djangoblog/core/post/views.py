@@ -11,6 +11,21 @@ class PostListView(ListView):
         posts = Post.objects.filter(is_deleted=False)
         return render(request, self.template_name, {"posts": posts})
 
+    def post(self, request, *args, **kwargs):
+        search_tags = request.POST["search"]
+
+        posts = Post.objects.filter(
+            tags__name__icontains=search_tags,
+            is_deleted=False,
+        )
+        return render(
+            request,
+            self.template_name,
+            {
+                "posts": posts,
+                "method": "post"
+            },
+        )
 
 class PostCreateView(CreateView):
     model = Post

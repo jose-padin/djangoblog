@@ -7,9 +7,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/blog_list.css' %}">
+
+    {% if method %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/blog_detail_nav.css' %}">
+    {% endif %}
 {% endblock%}
 
+{% block header %}
+    {% if method %}
+        <div class="container-fluid">
+            <ul class="nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'post:list' %}">Go back</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        {% if request.user.is_authenticated %}
+                            href="{% url 'authentication:logout' %}">Logout
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock  %}
+
 {% block content %}
+    <div class="search-container">
+        <form method="post" action="{% url 'post:list' %}">
+            {% csrf_token %}
+            <input type="search" class="form-input" name="search" placeholder="Search entries by tag name" />
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+    </div>
+
     {% if posts %}
         {% for post in posts %}
             <article class="card w-50">

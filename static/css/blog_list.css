@@ -32,9 +32,26 @@ article p.text {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 400;
     font-size: medium;
+    padding: 1rem;
 }
 
 hr {
     width: 80vw;
     box-shadow: 0px 1px  black;
+}
+
+/* search input */
+div.search-container {
+    margin: 50px 0px 50px;
+}
+
+div.search-container input {
+    border: none;
+    border-radius: 10px;
+    padding: .4rem;
+    outline: none;
+}
+
+div.search-container button {
+    margin-left: 1rem;
 }

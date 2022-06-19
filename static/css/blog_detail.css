@@ -37,4 +37,5 @@ article p.text {
     font-size: larger;
     line-height: 2rem;
     white-space: wrap;
+    padding: 2rem;
 }
