@@ -1,0 +1,16 @@
+version: "3.8"
+   
+services:
+    django:
+        build: .
+        working_dir: /opt/app/
+        container_name: django
+        command: "python src/manage.py runserver 0.0.0.0:8001"
+        volumes:
+            - .:/opt/app/
+        ports:
+            - "8001:8001"
+        depends_on:
+            - redis
+    redis:
+        image: "redis:alpine"
