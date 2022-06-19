@@ -5,6 +5,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="{% static 'css/blog_list.css' %}">
 {% endblock%}
 
@@ -17,6 +18,10 @@
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text text">{{ post.text }}</p>
                     <a href="{% url 'post:detail' post.id %}" class="btn btn-primary">Continue reading</a>
+                    {% if post.tags %}
+                    <!-- TODO -->
+                    <p class="tags"></p>
+                    {% endif %}
                 </div>
             </article>
             <hr />

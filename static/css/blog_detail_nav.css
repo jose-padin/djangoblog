@@ -1,0 +1,13 @@
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.nav li a {
+    color: black;
+}
+
+.nav li a:hover {
+    color: #ccc;
+}

@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import BaseUser
+
+
+class BaseUserAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(BaseUser, BaseUserAdmin)
