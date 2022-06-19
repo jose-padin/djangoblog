@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% comment %} {% block header%}{% endblock%} {% endcomment %}
+{% block content %}
+    <div class="container mt-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <p>If you already have an account, <a href="{% url 'authentication:login' %}">go to the login page</a><p>
+    </div>
+{% endblock %}

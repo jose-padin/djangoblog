@@ -17,6 +17,7 @@ ALLOWED_HOSTS = []
 
 CORE_APPS = [
     "djangoblog.core",
+    "djangoblog.core.authn",
     "djangoblog.core.post",
     "djangoblog.core.user",
 ]
@@ -36,6 +37,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "djangoblog.core.middleware.login_middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -45,7 +47,7 @@ ROOT_URLCONF = "djangoblog.urls.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -90,6 +92,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "user.BaseUser"
+
+LOGIN_REDIRECT_URL = "post:list"
+LOGOUT_REDIRECT_URL = "authentication:login"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -103,10 +109,10 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    BASE_DIR.parent / "static",
+]
 
 # Media
 MEDIA_ROOT = "djangoblog/uploads/"
