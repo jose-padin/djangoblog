@@ -1,12 +1,19 @@
 {% extends 'base/base.html' %}
-{% comment %} {% block header%}{% endblock%} {% endcomment %}
+{% load static %}
+
+{% block head %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+{% endblock%}
+
 {% block content %}
-    <div class="container mt-4">
-        <form method="post">
+    <div class="container mt-4 wrapper">
+        <form method="post" class="form-register">
             {% csrf_token %}
             {{ form }}
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
-        <p>If you already have an account, <a href="{% url 'authentication:login' %}">go to the login page</a><p>
+        <p>If you already have an account,
+            <a href="{% url 'authentication:login' %}"> go to the login page</a>
+        <p>
     </div>
 {% endblock %}

@@ -31,6 +31,11 @@ class Post(models.Model):
     )
     is_deleted = models.BooleanField(default=False, blank=True)
     image = models.ImageField(upload_to="media")
+    pub_date = models.DateTimeField(
+        _("publication date"),
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         db_table = "post"
