@@ -37,9 +37,9 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "djangoblog.core.middleware.login_middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "djangoblog.core.middleware.login_middleware.LoginRequiredMiddleware",
 ]
 
 ROOT_URLCONF = "djangoblog.urls.urls"
@@ -105,7 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "user.BaseUser"
 
-LOGIN_REDIRECT_URL = "post:list"
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "authentication:login"
 
 # Internationalization
