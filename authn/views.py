@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.views import View
 
-from djangoblog.core.middleware.login_middleware import login_exempt
+from middleware.login_middleware import login_exempt
 
 from .forms import SignUpForm
 

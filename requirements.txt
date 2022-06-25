@@ -1,0 +1,6 @@
+celery
+Django==4.0
+Pillow
+redis
+django-redis
+# pyscopg2-binary>=2.8

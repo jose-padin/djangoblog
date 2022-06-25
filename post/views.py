@@ -13,7 +13,8 @@ class PostListView(ListView):
         posts = Post.objects.filter(
             pub_date__lte=timezone.now(),
             is_deleted=False,
-        )
+        ).order_by("-pub_date")
+
         return render(request, self.template_name, {"posts": posts})
 
     def post(self, request, *args, **kwargs):

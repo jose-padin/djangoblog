@@ -1,14 +1,10 @@
-from pprint import PrettyPrinter
 from datetime import datetime
 
 from django import forms
 from django.utils import timezone
 
-from djangoblog.core.tasks import publish_post
-
 from .models import Post
-
-print = PrettyPrinter(indent=4).pprint
+from .tasks import publish_post
 
 
 class PostForm(forms.ModelForm):
@@ -68,7 +64,7 @@ class PostForm(forms.ModelForm):
 
         schedule = datetime.strptime(_datetime, "%Y-%m-%d %H:%M")
 
-        publish_post.s().apply_async(eta=schedule)
+        publish_post.s(id=obj.id).apply_async(eta=schedule)
 
         return obj
 

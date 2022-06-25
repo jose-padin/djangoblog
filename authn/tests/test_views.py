@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.test import TestCase
 
-from djangoblog.core.user.models import BaseUser
+from user.models import BaseUser
 
 
 class ViewsTestCase(TestCase):

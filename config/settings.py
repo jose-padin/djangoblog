@@ -7,19 +7,22 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = configparser.ConfigParser()
-config.read(os.path.join(BASE_DIR, "../djangoblog.conf"))
+config.read(os.path.join(BASE_DIR, "djangoblog.conf"))
 
 SECRET_KEY = config.get("django", "SECRET_KEY", fallback="", raw=True)
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "0.0.0.0",
+]
 
 CORE_APPS = [
-    "djangoblog.core",
-    "djangoblog.core.authn",
-    "djangoblog.core.post",
-    "djangoblog.core.user",
+    "authn",
+    "post",
+    "user",
+    "config",
 ]
 
 INSTALLED_APPS = [
@@ -29,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "celery",
 ] + CORE_APPS
 
 MIDDLEWARE = [
@@ -39,10 +43,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "djangoblog.core.middleware.login_middleware.LoginRequiredMiddleware",
+    "middleware.login_middleware.LoginRequiredMiddleware",
 ]
 
-ROOT_URLCONF = "djangoblog.urls.urls"
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {
@@ -61,11 +65,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "djangoblog.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -74,13 +75,22 @@ DATABASES = {
     }
 }
 
+# Redis
+REDIS_HOST = os.environ.get('REDIS_HOST', '0.0.0.0')
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/",
+        "LOCATION": "redis://redis:6383/",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+    },
+    "celery": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"{REDIS_HOST}/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
     }
 }
@@ -112,6 +122,8 @@ LOGOUT_REDIRECT_URL = "authentication:login"
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
+TIMEZONE = "Europe/Amsterdam"
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -124,12 +136,16 @@ USE_TZ = True
 # Static files
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    BASE_DIR.parent / "static",
+    BASE_DIR / "static",
 ]
 
 # Media
-MEDIA_ROOT = os.path.join(BASE_DIR.parent, "media/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "media/"
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Celery
+CELERY_BROKER_URL = "redis://redis:6383/0"
+CELERY_RESULT_BACKEND = "redis://redis:6383/0"
+CELERY_TIMEZONE = "Europe/Amsterdam"

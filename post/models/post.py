@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from djangoblog.core.user.models import BaseUser
+from user.models import BaseUser
 
 
 class Tag(models.Model):

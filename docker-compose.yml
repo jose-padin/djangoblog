@@ -3,14 +3,35 @@ version: "3.8"
 services:
     django:
         build: .
-        working_dir: /opt/app/
         container_name: django
-        command: "python src/manage.py runserver 0.0.0.0:8001"
+        working_dir: /usr/src/app/
+        command: "python manage.py runserver 0.0.0.0:8001"
         volumes:
-            - .:/opt/app/
+            - .:/usr/src/app/
         ports:
             - "8001:8001"
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+            - CELERY_BROKER=redis://redis:6383/0
+            - CELERY_BACKEND=redis://redis:6383/0
         depends_on:
             - redis
     redis:
         image: "redis:alpine"
+        ports:
+            - "6383:6383"
+        command: --port 6383
+        expose:
+            - 6383
+        environment:
+            - REDIS_HOST=redis
+
+    celery:
+        build: .
+        command: celery -A config worker -l DEBUG
+        volumes:
+            - .:/usr/src/app
+        depends_on:
+            - django
+            - redis
