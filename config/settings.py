@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 config = configparser.ConfigParser()
 config.read(os.path.join(BASE_DIR, "djangoblog.conf"))
 
-SECRET_KEY = config.get("django", "SECRET_KEY", fallback="", raw=True)
+SECRET_KEY = config.get("django", "SECRET_KEY", fallback="insecure_secret_key", raw=True)
 
 DEBUG = True
 
