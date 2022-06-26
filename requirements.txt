@@ -1,6 +1,7 @@
-celery
+celery==5.2.7
+coverage==6.4.1
 Django==4.0
-Pillow
-redis
-django-redis
+django-redis==5.2.0
+Pillow==9.1.1
+redis==4.3.3
 # pyscopg2-binary>=2.8

@@ -11,3 +11,6 @@ images/
 
 __pycache__
 *.ignore
+
+# test coverage
+.coverage
