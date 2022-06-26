@@ -46,9 +46,6 @@ class TestPostModel(TestCase):
 
 
 class TestTagModel(TestCase):
-    def test_empty_tag_raises_error(self):
-        self.assertRaises(IntegrityError, Tag.objects.create)
-
     def test_tag_str_method(self):
         tag = Tag.objects.create(name="Tag number 1")
         self.assertEquals(str(tag), "Tag number 1")

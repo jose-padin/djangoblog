@@ -1,12 +1,23 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from user.models import BaseUser
 
 
+def validate_name(value):
+    if value == "":
+        raise ValidationError(_("The name field must not be empty"))
+
+
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(_("name"), max_length=50, unique=True)
+    name = models.CharField(
+        _("name"),
+        max_length=50,
+        unique=True,
+        validators=[validate_name],
+    )
 
     class Meta:
         db_table = "tag"
